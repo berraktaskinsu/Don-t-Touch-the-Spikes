@@ -5,7 +5,7 @@ using UnityEngine;
 public class MovePlayer : MonoBehaviour
 {
     [SerializeField] public float speed = 0.02f;
-    [SerializeField] float jumpVelocity = 2f;
+    [SerializeField] float jumpVelocity = 10f;
     private Rigidbody2D rigidBody;
 
     void Awake()
@@ -13,7 +13,7 @@ public class MovePlayer : MonoBehaviour
         rigidBody = transform.GetComponent<Rigidbody2D>();
     }
 
-    void Start() 
+    void Start()
     {
         rigidBody.velocity = Vector2.up * jumpVelocity;
     }
@@ -21,7 +21,8 @@ public class MovePlayer : MonoBehaviour
     void Update()
     {
         transform.Translate(speed, 0, 0);
-        if (Input.GetKeyDown(KeyCode.Space)) {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
             rigidBody.velocity = Vector2.up * jumpVelocity;
         }
     }

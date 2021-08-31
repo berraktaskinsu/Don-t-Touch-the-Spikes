@@ -1,23 +1,58 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HitPlayer : MonoBehaviour
 {
+    private SpriteRenderer spriteRenderer;
+    private Transform[] spikes;
+    private int score = 0;
+    public Text scoreText;
+    private int numSpikes = 3;
+    void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        spikes = GameObject.FindGameObjectWithTag("Spikes").GetComponentsInChildren<Transform>();
+    }
     void OnCollisionEnter2D(Collision2D other)
     {
         switch (other.gameObject.tag)
         {
             case "Wall":
                 {
+                    score++;
+                    scoreText.text = score.ToString();
+                    numSpikes = 3 + score / 10;
                     GetComponent<MovePlayer>().speed *= -1;
-                    Debug.Log("Wall");
+                    spriteRenderer.flipX = !spriteRenderer.flipX;
+
+                    foreach (Transform spike in spikes)
+                    {
+                        if (spike != spikes[0])
+                        {
+                            spike.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                            spike.gameObject.GetComponent<PolygonCollider2D>().enabled = false;
+                        }
+                    }
+
+                    int indexOffset = 1;
+                    if (GetComponent<MovePlayer>().speed > 0)
+                    {
+                        // Spiky will move right
+                        indexOffset += 16;
+                    }
+                    foreach (int index in KRandomIndices())
+                    {
+                        GameObject spike = spikes[index + indexOffset].gameObject;
+                        spike.GetComponent<SpriteRenderer>().enabled = true;
+                        spike.GetComponent<PolygonCollider2D>().enabled = true;
+                    }
                     break;
                 }
             case "Spike":
                 {
                     Destroy(this);
-                    Debug.Log("Game Over");
                     Destroy(GetComponent<MovePlayer>());
                     Destroy(gameObject, 5);
                     break;
@@ -29,5 +64,30 @@ public class HitPlayer : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    private int[] KRandomIndices()
+    {
+
+        int[] selectedIndices = new int[numSpikes];
+        for (int i = 0; i < numSpikes;)
+        {
+            int number = Random.Range(0, 15);
+            bool isDuplicate = false;
+            foreach (int index in selectedIndices)
+            {
+                if (index == number)
+                {
+                    isDuplicate = true;
+                    break;
+                }
+            }
+            if (!isDuplicate)
+            {
+                selectedIndices[i] = number;
+                i++;
+            }
+        }
+        return selectedIndices;
     }
 }

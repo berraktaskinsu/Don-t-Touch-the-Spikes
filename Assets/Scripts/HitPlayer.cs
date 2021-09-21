@@ -31,8 +31,11 @@ public class HitPlayer : MonoBehaviour
                     {
                         if (spike != spikes[0])
                         {
-                            spike.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-                            spike.gameObject.GetComponent<PolygonCollider2D>().enabled = false;
+                            MoveSpike mover = spike.gameObject.GetComponent<MoveSpike>();
+                            if (mover.isVisible)
+                            {
+                                mover.currentMovement = EMovement.Movement.Hide;
+                            }
                         }
                     }
 
@@ -45,8 +48,7 @@ public class HitPlayer : MonoBehaviour
                     foreach (int index in KRandomIndices())
                     {
                         GameObject spike = spikes[index + indexOffset].gameObject;
-                        spike.GetComponent<SpriteRenderer>().enabled = true;
-                        spike.GetComponent<PolygonCollider2D>().enabled = true;
+                        spike.GetComponent<MoveSpike>().currentMovement = EMovement.Movement.Show;
                     }
                     break;
                 }
@@ -54,7 +56,7 @@ public class HitPlayer : MonoBehaviour
                 {
                     Destroy(this);
                     Destroy(GetComponent<MovePlayer>());
-                    Destroy(gameObject, 5);
+                    Destroy(gameObject, 1);
                     break;
                 }
             case "Candy":

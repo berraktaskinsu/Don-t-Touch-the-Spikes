@@ -349,6 +349,7 @@ GameObject:
   - component: {fileID: 104991602}
   - component: {fileID: 104991603}
   - component: {fileID: 104991601}
+  - component: {fileID: 104991604}
   m_Layer: 0
   m_Name: Spiky
   m_TagString: Untagged
@@ -489,11 +490,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a41e33098c7f64e439a8a054ecf59ae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
   idleSpeed: 2
   jumpVelocity: 7
   posUp: {fileID: 202334364}
   posDown: {fileID: 1044786899}
+  speed: 5
 --- !u!114 &104991602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -520,6 +521,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numSpikes: 3
   levelText: {fileID: 144635384}
+--- !u!114 &104991604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 104991595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1275cfb6173015429a8ce046460c580, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &106812021 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9215641696293169289, guid: 4a66978f19f83474ea1f3941b066d95a, type: 3}
@@ -1130,6 +1143,7 @@ GameObject:
   m_Component:
   - component: {fileID: 281798283}
   - component: {fileID: 281798282}
+  - component: {fileID: 281798284}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -1163,6 +1177,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &281798284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 281798281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27a33a5150f3dcd4fbcba7dc8b99db16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &299594362 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9215641696293169289, guid: 4a66978f19f83474ea1f3941b066d95a, type: 3}

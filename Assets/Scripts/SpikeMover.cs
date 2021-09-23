@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class MoveSpike : MonoBehaviour
+public class SpikeMover : MonoBehaviour
 {
     public EMovement.Movement currentMovement = EMovement.Movement.Idle;
     public bool isVisible = false;
@@ -12,10 +12,7 @@ public class MoveSpike : MonoBehaviour
     private float visibleX;
     private float speedX; // per frame
 
-
-
-    [SerializeField]
-    public float duration = 0.1f; // seconds 
+    [SerializeField] public float duration = 0.1f; // seconds 
 
     void Start()
     {
@@ -28,7 +25,6 @@ public class MoveSpike : MonoBehaviour
         visibleX = hiddenX + (transform.localScale.x / 2) * (hiddenX > 0 ? -1 : 1);
         speedX = (visibleX - hiddenX) / duration;
     }
-
     void Update()
     {
         float currentX = transform.localPosition.x;
@@ -67,5 +63,9 @@ public class MoveSpike : MonoBehaviour
                     break;
                 }
         }
+    }
+    public void ChangeMovement(EMovement.Movement movement)
+    {
+        currentMovement = movement;
     }
 }

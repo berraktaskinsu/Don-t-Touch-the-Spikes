@@ -5,13 +5,17 @@ using UnityEngine.UI;
 
 public class LevelHandler : MonoBehaviour
 {
-    private int level = 0;
     public int numSpikes = 0;
     public Text levelText;
-
-    public void Increment()
+    private int level = 0;
+    void Start()
+    {
+        EventSystem.BeforeNextLevel += Increment;
+    }
+    private void Increment(EventSystem.WallHitArgs wallHitArgs)
     {
         level++;
+        Debug.Log(level);
         if (level == 1)
         {
             numSpikes = 2;
@@ -23,5 +27,4 @@ public class LevelHandler : MonoBehaviour
         }
         levelText.text = level.ToString();
     }
-
 }

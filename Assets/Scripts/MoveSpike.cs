@@ -32,14 +32,12 @@ public class MoveSpike : MonoBehaviour
     void Update()
     {
         float currentX = transform.localPosition.x;
-        // Debug.Log("Hidden: " + hiddenX + ", Current: " + currentX);
         switch (currentMovement)
         {
             case EMovement.Movement.Show:
                 {
                     if (currentX == visibleX)
                     {
-                        Debug.Log("Show End");
                         currentMovement = EMovement.Movement.Idle;
                         isVisible = true;
                         break;
@@ -56,7 +54,6 @@ public class MoveSpike : MonoBehaviour
                 {
                     if (currentX == hiddenX)
                     {
-                        Debug.Log("Hide End");
                         currentMovement = EMovement.Movement.Idle;
                         isVisible = false;
                         break;

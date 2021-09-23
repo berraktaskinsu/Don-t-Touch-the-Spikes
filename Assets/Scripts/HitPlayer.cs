@@ -1,18 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class HitPlayer : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
     private Transform[] spikes;
-    private int score = 0;
-    public Text scoreText;
-    private int numSpikes = 3;
+    private LevelHandler levelHandler;
+
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        levelHandler = GetComponent<LevelHandler>();
         spikes = GameObject.FindGameObjectWithTag("Spikes").GetComponentsInChildren<Transform>();
     }
     void OnCollisionEnter2D(Collision2D other)
@@ -21,9 +20,8 @@ public class HitPlayer : MonoBehaviour
         {
             case "Wall":
                 {
-                    score++;
-                    scoreText.text = score.ToString();
-                    numSpikes = 3 + score / 10;
+                    levelHandler.Increment();
+
                     GetComponent<MovePlayer>().speed *= -1;
                     spriteRenderer.flipX = !spriteRenderer.flipX;
 
@@ -45,7 +43,7 @@ public class HitPlayer : MonoBehaviour
                         // Spiky will move right
                         indexOffset += 16;
                     }
-                    foreach (int index in KRandomIndices())
+                    foreach (int index in KRandomIndices(levelHandler.numSpikes))
                     {
                         GameObject spike = spikes[index + indexOffset].gameObject;
                         spike.GetComponent<MoveSpike>().currentMovement = EMovement.Movement.Show;
@@ -68,11 +66,10 @@ public class HitPlayer : MonoBehaviour
         }
     }
 
-    private int[] KRandomIndices()
+    private int[] KRandomIndices(int k)
     {
-
-        int[] selectedIndices = new int[numSpikes];
-        for (int i = 0; i < numSpikes;)
+        int[] selectedIndices = new int[k];
+        for (int i = 0; i < k;)
         {
             int number = Random.Range(0, 15);
             bool isDuplicate = false;
